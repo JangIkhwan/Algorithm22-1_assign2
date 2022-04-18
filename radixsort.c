@@ -3,8 +3,9 @@
 
 void radixsort(node_pointer* masterlist, int numdigits);
 void distribute(node_pointer* masterlist, node_pointer* list, int i);
-void coalesce();
+void coalesce(node_pointer* masterlist, node_pointer* list);
 
+// 기수정렬을 수행하는 함수
 void radixsort(node_pointer* masterlist, int numdigits) {
 	int i;
 	node_pointer list[10];
@@ -22,7 +23,7 @@ void distribute(node_pointer* masterlist, node_pointer* list, int i) {
 	for (j = 0; j <= 9; j++) {
 		list[i] = NULL;
 	} 
-	p = masterlist;
+	p = *masterlist;
 	while (p != NULL) {
 		j = getDigit(p->key, i);
 		
@@ -42,6 +43,10 @@ int getDigit(int num, int i) {
 	return ret;
 }
 
-
+void coalesce(node_pointer* masterlist, node_pointer* list) {
+	int j;
+	*masterlist = NULL;
+	
+}
 
 

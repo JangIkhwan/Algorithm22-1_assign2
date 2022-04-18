@@ -4,10 +4,12 @@
 #include "sorting.h"
 
 #define SORT_NUM 5 // 테스트할 정렬함수의 개수
-#define DB         // 정렬 내용 출력시킬지를 결정하는 매크로
+//#define DB         // 정렬한 결과를 출력할지 결정하는 매크로
 
-int** generateRandArrays(int size);
-void deleteRandArrays(int** arrays);
+//int** generateRandArrays(int size);
+//void deleteRandArrays(int** arrays);
+int* generateRandArray(int size);
+void deleteRandArray(int* array);
 void printArray(int size, int* arr);
 
 void testExchangesort(int size, int* arr);
@@ -17,34 +19,104 @@ void testHeapsort(int size, int* arr);
 void testRadixsort(int size, int* arr);
 
 int main(void) {
-	int test_sizes[] = { 10, 15, 20, 30 /*100, 500, 1000, 5000, 10000*/ }; // 테스트에 사용할 배열의 크기
+	int test_sizes[] = { /*10, 15, 20, 30*/ 100, 500, 1000, 5000, 10000 }; // 테스트에 사용할 배열의 크기
 	int test_num = sizeof(test_sizes) / sizeof(int); // 테스트 횟수
-	int** rand_arrs; // 정렬할 배열을 할당받는 변수
+	//int** rand_arrs; // 정렬할 배열을 할당받는 변수
+	int* rand_arr;
 	int size;        // 정렬할 배열의 크기
 
 	srand((unsigned int)time(NULL));
 
 	for (int i = 0; i < test_num; i++) {
 		size = test_sizes[i];
-		rand_arrs = generateRandArrays(size); // 2차원 배열을 반환받음
+		//rand_arrs = generateRandArrays(size); // 2차원 배열을 반환받음
+		rand_arr = generateRandArray(size);
 
-		printf("%d. input size: %d\n\n", i + 1, size);
+		printf("input size: %d ", size);
 
 #ifdef DB
-		printf("before : "); printArray(size, rand_arrs[0]); printf("\n");
+		//printf("before : "); printArray(size, rand_arrs[0]); printf("\n");
+		printf("before : "); printArray(size, rand_arr); printf("\n");
 #endif
 
-		testExchangesort(size, rand_arrs[0]);
-		testMergesort(size, rand_arrs[1]);
-		testQuicksort(size, rand_arrs[2]);
-		testHeapsort(size, rand_arrs[3]);
+		testExchangesort(size, rand_arr);
+
+		//testExchangesort(size, rand_arrs[0]);
+		//testMergesort(size, rand_arrs[1]);
+		//testQuicksort(size, rand_arrs[2]);
+		//testHeapsort(size, rand_arrs[3]);
 		//testRadixsort(size, rand_arrs[4]);
 
-		printf("\n");
-
-		deleteRandArrays(rand_arrs);
-
+		//deleteRandArrays(rand_arrs);
+		deleteRandArray(rand_arr);
 	}
+
+	printf("\n");
+
+	for (int i = 0; i < test_num; i++) {
+		size = test_sizes[i];
+		rand_arr = generateRandArray(size);
+
+		printf("input size: %d ", size);
+
+#ifdef DB
+		printf("before : "); printArray(size, rand_arr); printf("\n");
+#endif
+
+		testMergesort(size, rand_arr);
+
+		deleteRandArray(rand_arr);
+	}
+	printf("\n");
+
+	for (int i = 0; i < test_num; i++) {
+		size = test_sizes[i];
+		rand_arr = generateRandArray(size);
+
+		printf("input size: %d ", size);
+
+#ifdef DB
+		printf("before : "); printArray(size, rand_arr); printf("\n");
+#endif
+
+		testQuicksort(size, rand_arr);
+		
+		
+		deleteRandArray(rand_arr);
+	}
+	printf("\n");
+
+	for (int i = 0; i < test_num; i++) {
+		size = test_sizes[i];
+		rand_arr = generateRandArray(size);
+
+		printf("input size: %d ", size);
+
+#ifdef DB
+		printf("before : "); printArray(size, rand_arr); printf("\n");
+#endif
+
+		testHeapsort(size, rand_arr);
+
+		deleteRandArray(rand_arr);
+	}
+	printf("\n");
+
+	for (int i = 0; i < test_num; i++) {
+		size = test_sizes[i];
+		rand_arr = generateRandArray(size);
+
+		printf("input size: %d ", size);
+
+#ifdef DB
+		printf("before : "); printArray(size, rand_arr); printf("\n");
+#endif
+
+		testRadixsort(size, rand_arr);
+
+		deleteRandArray(rand_arr);
+	}
+	printf("\n");
 }
 
 // 교환정렬 테스트 함수
@@ -150,6 +222,22 @@ void testRadixsort(int size, int* arr) {
 	printf("after : "); printArray(size, arr); printf("\n");
 #endif
 
+}
+
+// 난수 생성기를 통해서 배열을 동적으로 생성하는 함수
+int* generateRandArray(int size) {
+	int* array = (int*)malloc(sizeof(int) * size);
+
+	for (int i = 0; i < size; i++) {
+		array[i] = rand() % 100;
+	}
+
+	return array;
+}
+
+// 동적 배열을 반환하는 함수
+void deleteRandArray(int* array) {
+	free(array);
 }
 
 // 난수 생성기를 통해서 배열을 동적으로 생성하는 함수

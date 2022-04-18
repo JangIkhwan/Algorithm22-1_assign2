@@ -3,6 +3,7 @@
 void mergesort(int n, int* S);
 void merge(int h, int m, int* U, int* V, int* S);
 
+// 합병정렬을 수행하는 함수
 void mergesort(int n, int* S) {
 	if (n > 1) {
 		int h = n / 2;

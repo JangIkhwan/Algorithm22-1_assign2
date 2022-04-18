@@ -6,6 +6,7 @@ void removekeys(int n, Heap* h, int* s);
 int root(Heap* h);
 void shiftdown(Heap* h, int i);
 
+// 힙정렬을 수행하는 함수
 void heapsort(int n, Heap* h) {
 	makeheap(n, h);
 	removekeys(n, h, h->data);
