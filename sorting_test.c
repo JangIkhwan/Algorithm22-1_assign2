@@ -6,8 +6,6 @@
 #define SORT_NUM 5 // 테스트할 정렬함수의 개수
 //#define DB         // 정렬한 결과를 출력할지 결정하는 매크로
 
-//int** generateRandArrays(int size);
-//void deleteRandArrays(int** arrays);
 int* generateRandArray(int size);
 void deleteRandArray(int* array);
 void printArray(int size, int* arr);
@@ -21,33 +19,23 @@ void testRadixsort(int size, int* arr);
 int main(void) {
 	int test_sizes[] = { /*10, 15, 20, 30*/ 100, 500, 1000, 5000, 10000 }; // 테스트에 사용할 배열의 크기
 	int test_num = sizeof(test_sizes) / sizeof(int); // 테스트 횟수
-	//int** rand_arrs; // 정렬할 배열을 할당받는 변수
-	int* rand_arr;
+	int* rand_arr;   // 정렬할 배열을 할당받는 변수
 	int size;        // 정렬할 배열의 크기
 
 	srand((unsigned int)time(NULL));
 
 	for (int i = 0; i < test_num; i++) {
 		size = test_sizes[i];
-		//rand_arrs = generateRandArrays(size); // 2차원 배열을 반환받음
 		rand_arr = generateRandArray(size);
 
 		printf("input size: %d ", size);
 
 #ifdef DB
-		//printf("before : "); printArray(size, rand_arrs[0]); printf("\n");
 		printf("before : "); printArray(size, rand_arr); printf("\n");
 #endif
 
 		testExchangesort(size, rand_arr);
 
-		//testExchangesort(size, rand_arrs[0]);
-		//testMergesort(size, rand_arrs[1]);
-		//testQuicksort(size, rand_arrs[2]);
-		//testHeapsort(size, rand_arrs[3]);
-		//testRadixsort(size, rand_arrs[4]);
-
-		//deleteRandArrays(rand_arrs);
 		deleteRandArray(rand_arr);
 	}
 
@@ -80,7 +68,6 @@ int main(void) {
 #endif
 
 		testQuicksort(size, rand_arr);
-		
 		
 		deleteRandArray(rand_arr);
 	}
@@ -238,32 +225,6 @@ int* generateRandArray(int size) {
 // 동적 배열을 반환하는 함수
 void deleteRandArray(int* array) {
 	free(array);
-}
-
-// 난수 생성기를 통해서 배열을 동적으로 생성하는 함수
-int** generateRandArrays(int size) {
-	int** arrays = (int**)malloc(sizeof(int*) * SORT_NUM); // 반환할 배열은 2차원 배열
-	for (int i = 0; i < SORT_NUM; i++) {
-		arrays[i] = (int*)malloc(sizeof(int) * size);
-	}
-	
-	// 같은 열에는 같은 난수값을 저장함
-	for (int i = 0; i < size; i++) {
-		int rand_value = rand() % 100;
-		for (int j = 0; j < SORT_NUM; j++) {
-			arrays[j][i] = rand_value;
-		}
-	}
-
-	return arrays;
-}
-
-// 동적 배열을 반환하는 함수
-void deleteRandArrays(int** arrays) {
-	for (int i = 0; i < SORT_NUM; i++) {
-		free(arrays[i]);
-	}
-	free(arrays);
 }
 
 // 배열의 값을 출력하는 함수
