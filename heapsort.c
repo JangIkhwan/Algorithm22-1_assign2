@@ -45,12 +45,13 @@ void shiftdown(Heap* h, int i) {
 
 	while (2 * parent <= h->heapsize && !spotfound) {
 		if (2 * parent < h->heapsize && h->data[2 * parent] < h->data[2 * parent + 1]) {
-			largerchild = 2 * parent;
+			largerchild = 2 * parent + 1;
 		}
 		else {
 			largerchild = 2 * parent;
 		}
 		if (shiftkey < h->data[largerchild]) {
+			h->data[parent] = h->data[largerchild];
 			parent = largerchild;
 		}
 		else {

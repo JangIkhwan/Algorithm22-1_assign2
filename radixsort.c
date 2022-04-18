@@ -1,13 +1,17 @@
 #include <stdlib.h>
 #include "sorting.h"
 
+void radixsort(node_pointer* masterlist, int numdigits);
+void distribute(node_pointer* masterlist, node_pointer* list, int i);
+void coalesce();
+
 void radixsort(node_pointer* masterlist, int numdigits) {
 	int i;
 	node_pointer list[10];
 
 	for (i = 1; i <= numdigits; i++) {
 		distribute(masterlist, list, i);
-		coalesce(masterlist, list);
+		//coalesce(masterlist, list);
 	}
 }
 
@@ -38,9 +42,6 @@ int getDigit(int num, int i) {
 	return ret;
 }
 
-void insertListnode(node_pointer list, ) {
-	
-}
 
 
 
